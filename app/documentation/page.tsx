@@ -40,7 +40,7 @@ const Documentation: FC = () => {
               <code className="bg-gray-700 text-white rounded px-1">
                 %name%
               </code>{" "}
-              in the HTML file to indicate where the client's name should be
+              in the HTML file to indicate where the client&apos;s name should be
               placed.
             </li>
           </ul>
@@ -77,7 +77,7 @@ const Documentation: FC = () => {
               <code className="bg-gray-700 text-white rounded px-1">
                 %name%
               </code>{" "}
-              where you want the client's name to appear.
+              where you want the client&apos;s name to appear.
             </li>
             <li>
               Use the provided interface on our website to upload your JSON file

@@ -105,7 +105,7 @@ export default function EmailForm() {
 
           {/* Sender's Name */}
           <label htmlFor="senderName" className="block text-white mb-2">
-            Sender's Name:
+            Sender&apos;s Name:
           </label>
           <input
             type="text"

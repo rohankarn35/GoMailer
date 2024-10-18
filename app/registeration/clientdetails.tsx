@@ -1,9 +1,15 @@
 "use client";
 import { useState } from "react";
 
-interface ParsedJson {
-  users: { name: string; email: string }[];
+interface User {
+  name: string;
+  email: string;
 }
+
+interface ParsedJson {
+  users: User[];
+}
+
 import EmailForm from "./page"; // Import the EmailForm component
 import PreviewPage from "./preview";
 
@@ -29,7 +35,7 @@ export default function ClientDetails({
       const reader = new FileReader();
       reader.onload = (e: ProgressEvent<FileReader>) => {
         if (e.target?.result) {
-          let htmlContent = e.target.result as string;
+          const htmlContent = e.target.result as string;
           let userContent = e.target.result as string;
           userContent = userContent.replace(/%name%/g, sender_name); // Replace all occurrences of %name% with "user"
           setFileJson(htmlContent); // Set the modified content of the HTML file
@@ -42,12 +48,12 @@ export default function ClientDetails({
     }
   };
 
-  const isValidParsedJson = (json: any): json is ParsedJson => {
+  const isValidParsedJson = (json: ParsedJson): json is ParsedJson => {
     return (
       json &&
       Array.isArray(json.users) &&
       json.users.every(
-        (user: any) =>
+        (user: User) =>
           typeof user.name === "string" && typeof user.email === "string"
       )
     );
@@ -70,8 +76,12 @@ export default function ClientDetails({
                 "Invalid JSON structure. Expecting a 'users' array with 'name' and 'email' fields."
               );
             }
-          } catch (error: any) {
-            alert(`Error parsing the JSON file: ${error.message}`);
+          } catch (error: unknown) {
+            if (error instanceof Error) {
+              alert(`Error parsing the JSON file: ${error.message}`);
+            } else {
+              alert('An unknown error occurred.');
+            }
           }
         }
       };
